@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <packaging>jar</packaging>
+    <groupId>org.webjars</groupId>
+    <artifactId>react-bootstrap</artifactId>
+    <version>0.10.0</version>
+    <name>react-bootstrap</name>
+    <description>WebJar for the react bootstrap</description>
+    <url>http://webjars.org</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>http://github.com/webjars/react-bootstrap</url>
+        <connection>scm:git:https://github.com/webjars/react-bootstrap.git</connection>
+        <developerConnection>scm:git:https://github.com/webjars/react-bootstrap.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <upstream.version>0.10.0</upstream.version>
+        <upstream.url>https://github.com/stevoland/react-bootstrap</upstream.url>
+        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${upstream.version}
+        </destDir>
+        <extract.dir>${project.build.directory}/${project.name}-${upstream.version}</extract.dir>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>wagon-maven-plugin</artifactId>
+                <version>1.0-beta-4</version>
+                <executions>
+                    <execution>
+                        <id>download-archive</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>download-single</goal>
+                        </goals>
+                        <configuration>
+                            <url>${upstream.url}/archive</url>
+                            <fromFile>v${upstream.version}.zip</fromFile>
+                            <toDir>${project.build.directory}</toDir>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo message="unzip archive" />
+                                <unzip src="${project.build.directory}/v${upstream.version}.zip" dest="${project.build.directory}" />
+                                <echo message="make tmp dir..."/>
+                                <mkdir dir="${destDir}"/>
+                                <echo message="running npm install" />
+                                <exec executable="npm" dir="${extract.dir}">
+                                    <arg value="install"/>
+                                </exec>
+                                <echo message="executing grunt build in directory ${extract.dir}" />
+                                <exec executable="./node_modules/.bin/grunt" dir="${extract.dir}">
+                                    <arg value="build"/>
+                                </exec>
+                                <move file="${extract.dir}/amd/react-bootstrap.js" toDir="${destDir}" />
+                                <move file="${extract.dir}/amd/react-bootstrap.min.js" toDir="${destDir}" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus-staging</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
