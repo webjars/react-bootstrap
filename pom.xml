@@ -42,7 +42,7 @@
         <upstream.url>https://github.com/stevoland/react-bootstrap</upstream.url>
         <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${upstream.version}
         </destDir>
-        <extract.dir>${project.build.directory}/${project.name}-${upstream.version}</extract.dir>
+        <extractDir>${project.build.directory}/${project.name}-${upstream.version}</extractDir>
     </properties>
 
     <build>
@@ -82,15 +82,15 @@
                                 <echo message="make tmp dir..."/>
                                 <mkdir dir="${destDir}"/>
                                 <echo message="running npm install" />
-                                <exec executable="npm" dir="${extract.dir}">
+                                <exec executable="npm" dir="${extractDir}">
                                     <arg value="install"/>
                                 </exec>
-                                <echo message="executing grunt build in directory ${extract.dir}" />
-                                <exec executable="./node_modules/.bin/grunt" dir="${extract.dir}">
+                                <echo message="executing grunt build in directory ${extractDir}" />
+                                <exec executable="./node_modules/.bin/grunt" dir="${extractDir}">
                                     <arg value="build"/>
                                 </exec>
-                                <move file="${extract.dir}/amd/react-bootstrap.js" toDir="${destDir}" />
-                                <move file="${extract.dir}/amd/react-bootstrap.min.js" toDir="${destDir}" />
+                                <move file="${extractDir}/amd/react-bootstrap.js" toDir="${destDir}" />
+                                <move file="${extractDir}/amd/react-bootstrap.min.js" toDir="${destDir}" />
                             </target>
                         </configuration>
                     </execution>
