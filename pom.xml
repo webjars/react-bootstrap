@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -12,7 +11,7 @@
     <packaging>jar</packaging>
     <groupId>org.webjars</groupId>
     <artifactId>react-bootstrap</artifactId>
-    <version>0.10.0-SNAPSHOT</version>
+    <version>0.10.0</version>
     <name>react-bootstrap</name>
     <description>WebJar for the react bootstrap</description>
     <url>http://webjars.org</url>
@@ -33,7 +32,7 @@
         <url>http://github.com/webjars/react-bootstrap</url>
         <connection>scm:git:https://github.com/webjars/react-bootstrap.git</connection>
         <developerConnection>scm:git:https://github.com/webjars/react-bootstrap.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>react-bootstrap-0.10.0</tag>
     </scm>
 
     <properties>
@@ -79,15 +78,15 @@
                             <target>
                                 <echo message="unzip archive" />
                                 <unzip src="${project.build.directory}/v${upstream.version}.zip" dest="${project.build.directory}" />
-                                <echo message="make tmp dir..."/>
-                                <mkdir dir="${destDir}"/>
+                                <echo message="make tmp dir..." />
+                                <mkdir dir="${destDir}" />
                                 <echo message="running npm install" />
                                 <exec executable="npm" dir="${extractDir}">
-                                    <arg value="install"/>
+                                    <arg value="install" />
                                 </exec>
                                 <echo message="executing grunt build in directory ${extractDir}" />
                                 <exec executable="./node_modules/.bin/grunt" dir="${extractDir}">
-                                    <arg value="build"/>
+                                    <arg value="build" />
                                 </exec>
                                 <move file="${extractDir}/amd/react-bootstrap.js" toDir="${destDir}" />
                                 <move file="${extractDir}/amd/react-bootstrap.min.js" toDir="${destDir}" />
