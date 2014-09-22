@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
     <groupId>org.webjars</groupId>
     <artifactId>react-bootstrap</artifactId>
-    <version>0.12.0-SNAPSHOT</version>
+    <version>0.12.0</version>
     <name>react-bootstrap</name>
     <description>WebJar for the react bootstrap</description>
     <url>http://webjars.org</url>
@@ -32,7 +32,7 @@
         <url>http://github.com/webjars/react-bootstrap</url>
         <connection>scm:git:https://github.com/webjars/react-bootstrap.git</connection>
         <developerConnection>scm:git:https://github.com/webjars/react-bootstrap.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>react-bootstrap-0.12.0</tag>
     </scm>
 
     <properties>
