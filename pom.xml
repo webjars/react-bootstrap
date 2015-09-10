@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
     <groupId>org.webjars</groupId>
     <artifactId>react-bootstrap</artifactId>
-    <version>0.23.8-SNAPSHOT</version>
+    <version>0.25.1-SNAPSHOT</version>
     <name>react-bootstrap</name>
     <description>WebJar for the react bootstrap</description>
     <url>http://webjars.org</url>
@@ -37,7 +37,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <upstream.version>0.23.7</upstream.version>
+        <upstream.version>0.25.1</upstream.version>
         <upstream.url>https://github.com/react-bootstrap/react-bootstrap-bower</upstream.url>
         <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${upstream.version}
         </destDir>
